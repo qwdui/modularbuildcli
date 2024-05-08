@@ -1,12 +1,18 @@
-function rotate(matrix) {
-  const n = matrix.length;
-  for (let i = 0; i < Math.floor(n / 2); i++) {
-    for (let j = i; j < n - i - 1; j++) {
-      const temp = matrix[i][j];
-      matrix[i][j] = matrix[n - j - 1][i];
-      matrix[n - j - 1][i] = matrix[n - i - 1][n - j - 1];
-      matrix[n - i - 1][n - j - 1] = matrix[j][n - i - 1];
-      matrix[j][n - i - 1] = temp;
+function minPathSum(grid) {
+  const m = grid.length;
+  const n = grid[0].length;
+  const dp = Array.from(Array(m), () => Array(n).fill(0));
+  dp[0][0] = grid[0][0];
+  for (let i = 1; i < m; i++) {
+    dp[i][0] = dp[i - 1][0] + grid[i][0];
+  }
+  for (let j = 1; j < n; j++) {
+    dp[0][j] = dp[0][j - 1] + grid[0][j];
+  }
+  for (let i = 1; i < m; i++) {
+    for (let j = 1; j < n; j++) {
+      dp[i][j] = grid[i][j] + Math.min(dp[i - 1][j], dp[i][j - 1]);
     }
   }
+  return dp[m - 1][n - 1];
 }
