@@ -1,1 +1,15 @@
-const maxN = (arr, n = 1) => [...arr].sort((a, b) => b - a).slice(0, n);
+function removeNthFromEnd(head, n) {
+  const dummy = new ListNode(0);
+  dummy.next = head;
+  let first = dummy;
+  let second = dummy;
+  for (let i = 0; i <= n; i++) {
+    first = first.next;
+  }
+  while (first !== null) {
+    first = first.next;
+    second = second.next;
+  }
+  second.next = second.next.next;
+  return dummy.next;
+}
